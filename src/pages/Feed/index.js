@@ -6,6 +6,8 @@ import api from '../../services/api'
 
 import {Container, Post, Header, Avatar, Name, Description, Loading} from './styles'
 
+import FeedImage from '../../components/FeedImage'
+
 export default function Feed() {
 
   const [feed, setFeed] = useState([])
@@ -49,12 +51,19 @@ export default function Feed() {
             showsVerticalScrollIndicator={false}
             onRefresh={refreshList}
             refreshing={refreshing}
+            ListFooterComponent={loading && <Loading/>}
             renderItem={({item}) => (
               <Post>
                 <Header>
                   <Avatar source={{ uri: item.author.avatar }} />
                   <Name>{item.author.name}</Name>
                 </Header>
+
+                <FeedImage
+                  aspectRatio={item.aspectRatio}
+                  smallSource={{ uri: item.image }}
+                  source={{uri: item.small}}
+                />
 
                 <Description>
                   <Name>{item.author.name}</Name> {item.description}
